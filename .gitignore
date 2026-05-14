@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Generated docs
+docs/
+
+# Lock
+package-lock.json
+
+# Build output
+dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*
+.npmrc
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temp
+tmp.txt
+
+# Coverage / test output
+coverage/
+.nyc_output/

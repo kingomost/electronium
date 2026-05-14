@@ -1,0 +1,82 @@
+{
+  "name": "electronium",
+  "version": "1.0.0",
+  "description": "Universal library to extend Electron functionality",
+  "keywords": [
+    "electron",
+    "electronjs",
+    "electronium",
+    "bridge",
+    "ipc",
+    "typescript",
+    "promise",
+    "bi-directional",
+    "renderer",
+    "main process",
+    "api",
+    "communication",
+    "esm",
+    "cjs"
+  ],
+  "license": "MIT",
+  "author": "Aleksei Klimov",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "build:publish": "tsup && node scripts/prepare-publish.js",
+    "dev": "tsup --watch",
+    "docs": "typedoc --out docs src",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "echo \"No tests configured yet\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kingomost/electronium.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kingomost/electronium/issues"
+  },
+  "homepage": "https://github.com/kingomost/electronium#readme",
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": false,
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@types/node": "^25.6.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.0.0",
+    "eslint-plugin-jsdoc": "^62.9.0",
+    "prettier": "^3.0.0",
+    "tsup": "^8.0.0",
+    "typedoc": "^0.28.19",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.0.0"
+  }
+}
