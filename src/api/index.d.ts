@@ -137,7 +137,7 @@ interface ApiServer {
    * @param listener The listener function.
    * @returns The ID of the listener.
    */
-  addListener(path: string, listener: (data: Record<string, unknown>) => void): string;
+  addListener(path: string, listener: (data: Record<string, unknown>) => void | Promise<void>): string;
 
   /**
    * Removes a specific listener.
