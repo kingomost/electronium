@@ -160,8 +160,8 @@ abstract class BaseApiNetwork extends BaseApi implements ApiNetwork {
       const responseHandler: AsyncDataCallback = (res) => {
         return new Promise((resolve, reject) => {
           this.pendingRequests.delete(messageId);
-          if ("error" in res) {
-            const errorObj = new Error(JSON.stringify(res.error));
+          if ("__electronium_error__" in res) {
+            const errorObj = new Error(JSON.stringify(res.__electronium_error__));
             if (onError) {
               onError(errorObj);
             } else {
@@ -203,8 +203,8 @@ abstract class BaseApiNetwork extends BaseApi implements ApiNetwork {
           const result = (data as { detail?: Record<string, unknown> }).detail ?? data;
           this.pendingRequests.delete(messageId);
 
-          if ("error" in result) {
-            reject(new Error(JSON.stringify(result.error)));
+          if ("__electronium_error__" in result) {
+            reject(new Error(JSON.stringify(result.__electronium_error__)));
           } else {
             resolve(result);
           }
@@ -263,7 +263,7 @@ abstract class BaseApiServer extends BaseApi implements ApiServer {
           JSON.stringify({
             ...data,
             header: { ...data.header, type: "response" },
-            data: { error: { code: 404, message: "Not found", path: data.path } },
+            data: { __electronium_error__: { code: 404, message: "Not found", path: data.path } },
           }),
         );
       }
