@@ -22,6 +22,8 @@ interface Message {
   path: string;
   /** Payload data */
   data: Record<string, unknown>;
+  /** Error response (only present when the request failed) */
+  error?: { code: number; message: string; path: string };
 }
 
 /** Callback function that handles standard data responses */

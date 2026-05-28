@@ -113,7 +113,7 @@ abstract class BaseApiNetwork extends BaseApi implements ApiNetwork {
       const pending = this.pendingRequests.get(data.header.id);
       if (pending && pending instanceof Function) {
         this.pendingRequests.delete(data.header.id);
-        void pending(data.data);
+        void pending(data.error ? { error: data.error } : data.data);
       }
     });
   }
@@ -160,7 +160,7 @@ abstract class BaseApiNetwork extends BaseApi implements ApiNetwork {
       const responseHandler: AsyncDataCallback = (res) => {
         return new Promise((resolve, reject) => {
           this.pendingRequests.delete(messageId);
-          if ("error" in res) {
+          if (res.error) {
             const errorObj = new Error(JSON.stringify(res.error));
             if (onError) {
               onError(errorObj);
@@ -203,7 +203,7 @@ abstract class BaseApiNetwork extends BaseApi implements ApiNetwork {
           const result = (data as { detail?: Record<string, unknown> }).detail ?? data;
           this.pendingRequests.delete(messageId);
 
-          if ("error" in result) {
+          if (result.error) {
             reject(new Error(JSON.stringify(result.error)));
           } else {
             resolve(result);
@@ -263,7 +263,8 @@ abstract class BaseApiServer extends BaseApi implements ApiServer {
           JSON.stringify({
             ...data,
             header: { ...data.header, type: "response" },
-            data: { error: { code: 404, message: "Not found", path: data.path } },
+            data: {},
+            error: { code: 404, message: "Not found", path: data.path },
           }),
         );
       }
