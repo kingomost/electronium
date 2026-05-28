@@ -22,6 +22,8 @@ interface Message {
   path: string;
   /** Payload data */
   data: Record<string, unknown>;
+  /** Error response (only present when the request failed) */
+  error?: { code: number; message: string; path: string };
 }
 
 /** Callback function that handles standard data responses */
@@ -137,7 +139,7 @@ interface ApiServer {
    * @param listener The listener function.
    * @returns The ID of the listener.
    */
-  addListener(path: string, listener: (data: Record<string, unknown>) => void): string;
+  addListener(path: string, listener: MessageListener): string;
 
   /**
    * Removes a specific listener.
